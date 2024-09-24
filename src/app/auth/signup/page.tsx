@@ -51,6 +51,7 @@ export default function SignUpPage() {
         toast.error(error);
       }
       action.setSubmitting(false);
+     
     },
   });
 
@@ -71,14 +72,22 @@ export default function SignUpPage() {
         onBlur={handleBlur}
         onChange={handleChange}
         value={name}
-        error={error("name")} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined}      />
+        error={error("name")}
+        onPointerEnterCapture={undefined}
+        onPointerLeaveCapture={undefined}
+        crossOrigin={undefined}
+      />
       <Input
         name='email'
         label='Email'
         onBlur={handleBlur}
         onChange={handleChange}
         value={email}
-        error={error("email")} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined}      />
+        error={error("email")}
+        onPointerEnterCapture={undefined}
+        onPointerLeaveCapture={undefined}
+        crossOrigin={undefined}
+      />
       <Input
         name='password'
         label='Password'
@@ -86,8 +95,18 @@ export default function SignUpPage() {
         onChange={handleChange}
         onBlur={handleBlur}
         value={password}
-        error={error("password")} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined}      />
-      <Button disabled={isSubmitting} type='submit' className='w-full'  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+        error={error("password")}
+        onPointerEnterCapture={undefined}
+        onPointerLeaveCapture={undefined}
+        crossOrigin={undefined}
+      />
+      <Button
+        disabled={isSubmitting}
+        type='submit'
+        className='w-full'
+        placeholder={undefined}
+        onPointerEnterCapture={undefined}
+        onPointerLeaveCapture={undefined}>
         Sign up
       </Button>
 
