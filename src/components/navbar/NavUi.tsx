@@ -11,10 +11,7 @@ import { Bars3Icon, XMarkIcon, HeartIcon } from "@heroicons/react/24/outline";
 import ProfileMenu from "../ProfileMenu";
 import { MobileNav } from "../MobileNav";
 import CartIcon from "../CartIcon";
-import {
-  UserCircleIcon,
-  ShoppingBagIcon,
-} from "@heroicons/react/24/outline";
+import { UserCircleIcon, ShoppingBagIcon } from "@heroicons/react/24/outline";
 import SearchForm from "../SearchForm";
 import useAuth from "@/hooks/useAuth";
 
@@ -53,7 +50,11 @@ export default function NavUI({ cartItemsCount, avatar }: Props) {
 
   return (
     <>
-      <MaterialNav className='mx-auto max-w-screen-xl px-4 py-2'  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+      <MaterialNav
+        className='mx-auto max-w-screen-xl px-4 py-2'
+        placeholder={undefined}
+        onPointerEnterCapture={undefined}
+        onPointerLeaveCapture={undefined}>
         <div className='flex items-center justify-between text-blue-gray-900'>
           <Link href='/' className='cursor-pointer font-semibold'>
             Next Ecom
@@ -69,7 +70,10 @@ export default function NavUI({ cartItemsCount, avatar }: Props) {
             {loggedIn ? (
               <ProfileMenu menuItems={menuItems} avatar={avatar} />
             ) : loading ? (
-              <Spinner onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
+              <Spinner
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+              />
             ) : (
               <>
                 <Link className='px-4 py-1' href='/auth/signin'>
@@ -91,7 +95,10 @@ export default function NavUI({ cartItemsCount, avatar }: Props) {
               variant='text'
               color='blue-gray'
               className='lg:hidden'
-              onClick={() => setOpen(!open)}  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+              onClick={() => setOpen(!open)}
+              placeholder={undefined}
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}>
               {open ? (
                 <XMarkIcon className='h-6 w-6' strokeWidth={2} />
               ) : (

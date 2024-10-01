@@ -1,25 +1,27 @@
 "use client";
 import React from "react";
-import AuthFormContainer from "../../../components/AuthFormContainer";
+import AuthFormContainer from "../../../../components/AuthFormContainer";
 import { Button, Input } from "@material-tailwind/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { filterFormikErrors } from "../../../utils/FormikHelpers";
+import { filterFormikErrors } from "../../../../utils/FormikHelpers";
 import { toast } from "react-toastify";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const validationSchema = yup.object().shape({
   name: yup.string().required("Name is required!"),
   email: yup.string().email("Invalid email!").required("Email is required!"),
   password: yup
     .string()
-    .min(8, "Password must be at least 8 characters.")
+    .min(3, "Password must be at least 8 characters.")
     .required("Password is required!"),
 });
 
 export default function SignUpPage() {
+  const router = useRouter();
   const {
     values,
     handleChange,
@@ -43,15 +45,15 @@ export default function SignUpPage() {
         error: string;
       };
       if (res.ok) {
-        toast.success(message);
+        toast.success("successfully submitted");
         await signIn("credentials", { email, password });
+        router.push("/");
       }
 
       if (!res.ok && error) {
         toast.error(error);
       }
       action.setSubmitting(false);
-     
     },
   });
 

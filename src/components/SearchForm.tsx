@@ -23,14 +23,11 @@ export default function SearchForm({ submitTo }: Props) {
       className='w-full'>
       <Input
         label='Search'
-        icon={
-          <button>
-            <MagnifyingGlassIcon className='h-5 w-5' />
-          </button>
-        }
+        icon={<button>
+          <MagnifyingGlassIcon className='h-5 w-5' />
+        </button>}
         value={query || searchQuery}
-        onChange={({ target }) => setQuery(target.value)}
-      />
+        onChange={({ target }) => setQuery(target.value)} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined}      />
     </form>
   );
 }
