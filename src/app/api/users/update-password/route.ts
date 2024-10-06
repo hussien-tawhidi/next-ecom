@@ -1,11 +1,11 @@
-
-import { connectDB } from "@/libs/db";
-import { sendEmail } from "@/libs/email";
+import startDb from "@/lib/db";
+import { sendEmail } from "@/lib/email";
 import PasswordResetTokenModel from "@/models/passwordResetTokenModel";
 import UserModel from "@/models/userModel";
 import { UpdatePasswordRequest } from "@/types";
 import { isValidObjectId } from "mongoose";
 import { NextResponse } from "next/server";
+import nodemailer from "nodemailer";
 
 export const POST = async (req: Request) => {
   try {
@@ -14,7 +14,7 @@ export const POST = async (req: Request) => {
     if (!password || !token || !isValidObjectId(userId))
       return NextResponse.json({ error: "Invalid request!" }, { status: 401 });
 
-    await connectDB();
+    await startDb();
     const resetToken = await PasswordResetTokenModel.findOne({ user: userId });
     if (!resetToken)
       return NextResponse.json(

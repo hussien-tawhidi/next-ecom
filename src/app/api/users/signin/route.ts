@@ -1,5 +1,4 @@
-
-import { connectDB } from "@/libs/db";
+import startDb from "@/lib/db";
 import UserModel from "@/models/userModel";
 import { SignInCredentials } from "@/types";
 import { NextResponse } from "next/server";
@@ -11,7 +10,7 @@ export const POST = async (req: Request) => {
       error: "Invalid request, email password missing!",
     });
 
-  await connectDB();
+  await startDb();
   const user = await UserModel.findOne({ email });
   if (!user) return NextResponse.json({ error: "Email/Password mismatch!" });
 

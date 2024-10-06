@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import Navbar from "@/components/navbar/Navbar";
 import Session from "@/components/AuthSession";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+// import "slick-carousel/slick/slick.css";
+// import "slick-carousel/slick/slick-theme.css";
 import { Suspense } from "react";
 
 const geistSans = localFont({
@@ -34,9 +35,20 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <Session>
           <Suspense>
-            <Navbar />
             {children}
             <ToastContainer />
+
+            <link
+              rel='stylesheet'
+              type='text/css'
+              href='https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css'
+            />
+
+            <link
+              rel='stylesheet'
+              type='text/css'
+              href='https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css'
+            />
           </Suspense>
         </Session>
       </body>

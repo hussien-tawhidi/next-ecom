@@ -11,10 +11,9 @@ interface Auth {
 export default function useAuth(): Auth {
   const session = useSession();
   const user = session.data?.user;
-
+console.log(user)
   return {
     loading: session.status === "loading",
-    // loggedIn: true,
     loggedIn: session.status === "authenticated",
     isAdmin: user?.role === "admin",
     profile: user,

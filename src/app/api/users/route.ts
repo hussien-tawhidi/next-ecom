@@ -1,15 +1,18 @@
-import { connectDB } from "@/libs/db";
+import EmailVerificationToken from "@/models/emailVerificationToken";
+import { NewUserRequest } from "@/types";
+import startDb from "@/lib/db";
 import UserModel from "@/models/userModel";
 import { NextResponse } from "next/server";
 import crypto from "crypto";
-import EmailVerificationToken from "@/models/emailVerificationToken";
-import nodemailer from "nodemailer";
+import { sendEmail } from "@/lib/email";
 
-export async function POST(request: Request) {
-  const body = await request.json();
-  await connectDB();
+export const POST = async (req: Request) => {
+  const body = (await req.json()) as NewUserRequest;
+  await startDb();
 
-  const newUser = await UserModel.create({ ...body });
+  const newUser = await UserModel.create({
+    ...body,
+  });
 
   const token = crypto.randomBytes(36).toString("hex");
   await EmailVerificationToken.create({
@@ -17,22 +20,13 @@ export async function POST(request: Request) {
     token,
   });
 
-  // Looking to send emails in production? Check out our Email API/SMTP product!
-  // @ts-ignore
-  var transport = nodemailer.createTransport({
-    host: "sandbox.api.mailtrap.io",
-    port: 2525,
-    auth: {
-      user: "a9bc224244d055",
-      pass: "07cc76d5107a60",
-    },
+  const verificationUrl = `${process.env.VERIFICATION_URL}?token=${token}&userId=${newUser._id}`;
+
+  await sendEmail({
+    profile: { name: newUser.name, email: newUser.email },
+    subject: "verification",
+    linkUrl: verificationUrl,
   });
 
-  transport.sendMail({
-    from: "verification@nextecom.com",
-    to: newUser.email,
-    html: `<h1>please verify your email. by clickng <a href="http://localhost:3000/auth/verify?token=${token}&userId=${newUser._id}">This link...</a></h1>`,
-  });
-
-  return NextResponse.json(newUser);
-}
+  return NextResponse.json({ message: "Please check your email!" });
+};

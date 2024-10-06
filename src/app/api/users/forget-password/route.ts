@@ -1,10 +1,11 @@
+import PasswordResetTokenModel from "@/models/passwordResetTokenModel";
+import UserModel from "@/models/userModel";
+import { ForgetPasswordRequest } from "@/types";
 import { NextResponse } from "next/server";
 import crypto from "crypto";
-import { ForgetPasswordRequest } from "@/types";
-import { connectDB } from "@/libs/db";
-import UserModel from "@/models/userModel";
-import PasswordResetTokenModel from "@/models/passwordResetTokenModel";
-import { sendEmail } from "@/libs/email";
+import nodemailer from "nodemailer";
+import startDb from "@/lib/db";
+import { sendEmail } from "@/lib/email";
 
 export const POST = async (req: Request) => {
   try {
@@ -12,7 +13,7 @@ export const POST = async (req: Request) => {
     if (!email)
       return NextResponse.json({ error: "Invalid email!" }, { status: 401 });
 
-    await connectDB();
+    await startDb();
     const user = await UserModel.findOne({ email });
     if (!user)
       return NextResponse.json({ error: "user not found!" }, { status: 404 });
@@ -37,7 +38,6 @@ export const POST = async (req: Request) => {
 
     return NextResponse.json({ message: "Please check your email." });
   } catch (error) {
-   
     return NextResponse.json(
       { error: (error as any).message },
       { status: 500 }

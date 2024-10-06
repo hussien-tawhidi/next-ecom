@@ -1,12 +1,11 @@
+import EmailVerificationToken from "@/models/emailVerificationToken";
+import UserModel from "@/models/userModel";
+import { EmailVerifyRequest } from "@/types";
 import { isValidObjectId } from "mongoose";
 import { NextResponse } from "next/server";
 import crypto from "crypto";
-import { EmailVerifyRequest } from "@/types";
-import EmailVerificationToken from "@/models/emailVerificationToken";
-import UserModel from "@/models/userModel";
-import { connectDB } from "@/libs/db";
-import { sendEmail } from "@/libs/email";
-
+import { sendEmail } from "@/lib/email";
+import startDb from "@/lib/db";
 
 export const POST = async (req: Request) => {
   try {
@@ -55,7 +54,7 @@ export const GET = async (req: Request) => {
         { status: 401 }
       );
 
-    await connectDB();
+    await startDb();
 
     const user = await UserModel.findById(userId);
     if (!user)
