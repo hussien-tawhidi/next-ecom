@@ -5,8 +5,8 @@ import { NextResponse } from "next/server";
 import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  // @ts-ignore
-  apiVersion: "2022-11-15",
+
+  apiVersion: "2024-09-30.acacia",
 });
 
 export const POST = async (req: Request) => {
@@ -45,7 +45,7 @@ export const POST = async (req: Request) => {
       return {
         price_data: {
           currency: "INR",
-          unit_amount: product.price * 100,
+          unit_amount: product.price *100,
           product_data: {
             name: product.title,
             images: [product.thumbnail],
@@ -75,8 +75,10 @@ export const POST = async (req: Request) => {
     };
 
     const checkoutSession = await stripe.checkout.sessions.create(params);
+   
     return NextResponse.json({ url: checkoutSession.url });
-  } catch (error) {
+  } catch (error:any) {
+    console.log("error message in api/checkout: " + error.message);
     return NextResponse.json(
       { error: "Something went wrong, could not checkout!" },
       { status: 500 }

@@ -10,8 +10,7 @@ const stripeSecret = process.env.STRIPE_SECRET_KEY!;
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
 
 const stripe = new Stripe(stripeSecret, {
-  // @ts-ignore
-  apiVersion: "2022-11-15",
+  apiVersion: "2024-09-30.acacia",
 });
 
 export const POST = async (req: Request) => {

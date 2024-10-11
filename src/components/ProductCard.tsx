@@ -42,6 +42,7 @@ export default function ProductCard({ product }: Props) {
   const [isPending, startTransition] = useTransition();
 
   const handleCheckout = async () => {
+    if (!loggedIn) return router.push("/auth/signin");
     const res = await fetch("/api/checkout/instant", {
       method: "POST",
       body: JSON.stringify({ productId: product.id }),

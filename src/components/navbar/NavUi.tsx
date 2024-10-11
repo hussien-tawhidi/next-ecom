@@ -6,7 +6,6 @@ import {
   Navbar as MaterialNav,
   IconButton,
   Spinner,
-  Input,
 } from "@material-tailwind/react";
 import { Bars3Icon, XMarkIcon, HeartIcon } from "@heroicons/react/24/outline";
 import ProfileMenu from "../ProfileMenu";

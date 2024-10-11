@@ -11,19 +11,25 @@ export const POST = async (req: Request) => {
 
   const user = session?.user;
 
-  if (user?.role !== "admin")
-    return NextResponse.json(
-      { error: "unauthorized request!" },
-      { status: 401 }
-    );
+try {
+    if (user?.role !== "admin")
+      return NextResponse.json(
+        { error: "unauthorized request!" },
+        { status: 401 }
+      );
 
-  const { orderId, deliveryStatus } = await req.json();
+    const { orderId, deliveryStatus } = await req.json();
 
-  if (!isValidObjectId(orderId) || !validStatus.includes(deliveryStatus))
-    return NextResponse.json({ error: "Invalid data!" }, { status: 401 });
+    if (!isValidObjectId(orderId) || !validStatus.includes(deliveryStatus))
+      return NextResponse.json({ error: "Invalid data!" }, { status: 401 });
 
-  await startDb();
-  await OrderModel.findByIdAndUpdate(orderId, { deliveryStatus });
+    await startDb();
+    await OrderModel.findByIdAndUpdate(orderId, { deliveryStatus });
 
-  return NextResponse.json({ success: true });
+    return NextResponse.json({ success: true });
+} catch (error:any) {
+  console.log(`error in api/order/update-status: ${error.message}`)
+    return NextResponse.json({error: error});
+
+}
 };

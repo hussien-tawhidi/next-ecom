@@ -8,7 +8,7 @@ import * as yup from "yup";
 import { toast } from "react-toastify";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
-import { filterFormikErrors } from "@/utils/FormikHelpers";
+import { filterFormikErrors } from "@/utils/formikHelpers";
 
 const validationSchema = yup.object().shape({
   name: yup.string().required("Name is required!"),
@@ -64,44 +64,62 @@ export default function SignUp() {
   };
 
   return (
-    <AuthFormContainer title="Create New Account" onSubmit={handleSubmit}>
+    <AuthFormContainer title='Create New Account' onSubmit={handleSubmit}>
       <Input
-        name="name"
-        label="Name"
+        name='name'
+        label='Name'
         onBlur={handleBlur}
         onChange={handleChange}
         value={name}
-        error={error("name")} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined}      />
+        error={error("name")}
+        onPointerEnterCapture={undefined}
+        onPointerLeaveCapture={undefined}
+        crossOrigin={undefined}
+      />
       <Input
-        name="email"
-        label="Email"
+        name='email'
+        label='Email'
         onBlur={handleBlur}
         onChange={handleChange}
         value={email}
-        error={error("email")} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined}      />
+        error={error("email")}
+        onPointerEnterCapture={undefined}
+        onPointerLeaveCapture={undefined}
+        crossOrigin={undefined}
+      />
       <Input
-        name="password"
-        label="Password"
-        type="password"
+        name='password'
+        label='Password'
+        type='password'
         onChange={handleChange}
         onBlur={handleBlur}
         value={password}
-        error={error("password")} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined}      />
-      <Button disabled={isSubmitting} type="submit" className="w-full" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+        error={error("password")}
+        onPointerEnterCapture={undefined}
+        onPointerLeaveCapture={undefined}
+        crossOrigin={undefined}
+      />
+      <Button
+        disabled={isSubmitting}
+        type='submit'
+        className='w-full'
+        placeholder={undefined}
+        onPointerEnterCapture={undefined}
+        onPointerLeaveCapture={undefined}>
         Sign up
       </Button>
 
-      <div className="flex items-center justify-between">
-        <Link href="/auth/signin">Sign in</Link>
-        <Link href="/auth/forget-password">Forget password</Link>
+      <div className='flex items-center justify-between'>
+        <Link href='/auth/signin'>Sign in</Link>
+        <Link href='/auth/forget-password'>Forget password</Link>
       </div>
 
-      <div className="">
+      <div className=''>
         {formErrors.map((err) => {
           return (
-            <div key={err} className="space-x-1 flex items-center text-red-500">
-              <XMarkIcon className="w-4 h-4" />
-              <p className="text-xs">{err}</p>
+            <div key={err} className='space-x-1 flex items-center text-red-500'>
+              <XMarkIcon className='w-4 h-4' />
+              <p className='text-xs'>{err}</p>
             </div>
           );
         })}

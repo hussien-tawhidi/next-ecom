@@ -10,7 +10,7 @@ import * as yup from "yup";
 import { signIn } from "next-auth/react";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
-import { filterFormikErrors } from "@/utils/FormikHelpers";
+import { filterFormikErrors } from "@/utils/formikHelpers";
 
 const validationSchema = yup.object().shape({
   email: yup.string().email("Invalid email").required("Email is required"),
@@ -59,38 +59,51 @@ export default function SignIn() {
   };
 
   return (
-    <AuthFormContainer title="Create New Account" onSubmit={handleSubmit}>
+    <AuthFormContainer title='Create New Account' onSubmit={handleSubmit}>
       <Input
-        name="email"
-        label="Email"
+        name='email'
+        label='Email'
         value={email}
         onChange={handleChange}
         onBlur={handleBlur}
-        error={error("email")} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined}      />
+        error={error("email")}
+        onPointerEnterCapture={undefined}
+        onPointerLeaveCapture={undefined}
+        crossOrigin={undefined}
+      />
       <Input
-        name="password"
-        label="Password"
+        name='password'
+        label='Password'
         value={password}
         onChange={handleChange}
         onBlur={handleBlur}
         error={error("password")}
-        type="password" onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} crossOrigin={undefined}      />
-      <Button type="submit" className="w-full" disabled={isSubmitting} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+        type='password'
+        onPointerEnterCapture={undefined}
+        onPointerLeaveCapture={undefined}
+        crossOrigin={undefined}
+      />
+      <Button
+        type='submit'
+        className='w-full'
+        disabled={isSubmitting}
+        placeholder={undefined}
+        onPointerEnterCapture={undefined}
+        onPointerLeaveCapture={undefined}>
         Sign in
       </Button>
-      <div className="flex items-center justify-between">
-        <Link href="/auth/signup">Sign up</Link>
-        <Link href="/auth/forget-password">Forget password</Link>
+      <div className='flex items-center justify-between'>
+        <Link href='/auth/signup'>Sign up</Link>
+        <Link href='/auth/forget-password'>Forget password</Link>
       </div>
-      <div className="">
+      <div className=''>
         {errorsToRender.map((item) => {
           return (
             <div
               key={item}
-              className="space-x-1 flex items-center text-red-500"
-            >
-              <XMarkIcon className="w-4 h-4" />
-              <p className="text-xs">{item}</p>
+              className='space-x-1 flex items-center text-red-500'>
+              <XMarkIcon className='w-4 h-4' />
+              <p className='text-xs'>{item}</p>
             </div>
           );
         })}
